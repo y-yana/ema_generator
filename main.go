@@ -16,10 +16,10 @@ import (
 func randomString() string {
 	var n uint64
 	binary.Read(rand.Reader, binary.LittleEndian, &n)
-	return strconv.FormatUint(n, 36)
+	return (strconv.FormatUint(n, 36))
 }
 
-func createImage(formContent string) {
+func createImage(formContent string) string {
 	fontPath := "src/fonts/Koruri.ttf"
 	bgimagePath := "src/image/ema_bg.png"
 	// bgColor := color.RGBA{ 255, 255, 255, 1 }
@@ -36,13 +36,15 @@ func createImage(formContent string) {
   img, err := d.Draw(formContent)
   fmt.Print(err)
 
-  file, err := os.Create("dist/"+ randomString() + ".jpg")
+	fileName := randomString() + ".jpg"
+  file, err := os.Create("dist/" + fileName)
   fmt.Print(err)
   defer file.Close()
 
   err = jpeg.Encode(file, img, &jpeg.Options{Quality: 70})
   fmt.Print(err)
-
+	fmt.Print(fileName)
+	return (fileName)
 } 
 
 func main() {
