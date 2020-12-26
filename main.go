@@ -20,10 +20,17 @@ func randomString() string {
 }
 
 func createImage(formContent string) {
-	path := "src/fonts/Koruri.ttf"
+	fontPath := "src/fonts/Koruri.ttf"
+	bgimagePath := "src/image/ema_bg.png"
+	// bgColor := color.RGBA{ 255, 255, 255, 1 }
+	// textColor := color.RGBA{ 0, 0, 0, 1 }
+
   d, err := text2img.NewDrawer(text2img.Params{
-    FontPath: path,
-  })
+		FontPath: fontPath,
+		BackgroundImagePath: bgimagePath,
+		// BackgroundColor: bgColor,
+		// TextColor: textColor,
+	})
 	fmt.Print(err)
 
   img, err := d.Draw(formContent)
