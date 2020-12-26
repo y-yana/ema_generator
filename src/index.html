@@ -5,19 +5,29 @@
   <meta charset="utf-8">
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   <title>絵馬ジェネレーター</title>
+  <style>
+    /*
+    form{
+      background: no-repeat url("../image/ema.png");
+      background-size: contain;
+      background-position: center;
+      height: 50%;
+    }
+    */
+  </style>
 </head>
 
-<body>
-  <div>
+<body class="bg-red-800 h-screen">
+  <div class="bg-yellow-600 mx-auto object-contain w-3/4 h-full">
     <!-- 黄色の部分 -->
-    <div>
+    <div class="bg-white mx-auto object-contain w-5/6 h-full">
       <!-- 白の部分 -->
-      <h1>絵馬ジェネレーター</h1>
-      <form>
-        <textarea></textarea>
-        <input>
+      <h1 class="text-4xl mx-auto pt-8 pb-16 text-center">絵馬ジェネレーター</h1>
+      <form class="mx-auto">
+        <textarea class="block mx-auto justify-items-center border border-gray-400 rounded"></textarea>
+        <input class="block mx-auto justify-items-center border border-gray-400 rounded">
       </form>
-      <button>絵馬を書く</button>
+      <button class="block mx-auto bg-green-600 text-white py-2 px-4 rounded justify-items-center">絵馬を書く</button>
     </div>
   </div>
 </body>
