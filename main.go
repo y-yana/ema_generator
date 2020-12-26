@@ -19,15 +19,7 @@ func randomString() string {
 	return strconv.FormatUint(n, 36)
 }
 
-func main() {
-	r := gin.Default()
-
-	var formContent string
-	r.POST("/", func(c *gin.Context) {
-		formContent = c.PostForm("content")
-		c.JSON(http.StatusOK, gin.H{"content": formContent})
-	})
-
+func createImage(formContent string) {
 	path := "src/fonts/Koruri.ttf"
   d, err := text2img.NewDrawer(text2img.Params{
     FontPath: path,
@@ -41,8 +33,19 @@ func main() {
   fmt.Print(err)
   defer file.Close()
 
-  err = jpeg.Encode(file, img, &jpeg.Options{Quality: 100})
+  err = jpeg.Encode(file, img, &jpeg.Options{Quality: 70})
   fmt.Print(err)
+
+} 
+
+func main() {
+	r := gin.Default()
+
+	r.POST("/", func(c *gin.Context) {
+		formContent := c.PostForm("content")
+		c.JSON(http.StatusOK, gin.H{"content": formContent})
+		createImage(formContent)
+	})
 
 	r.Run(":8080")
 }
