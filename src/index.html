@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   <title>絵馬ジェネレーター</title>
   <style>
@@ -23,11 +24,11 @@
     <div class="bg-white mx-auto object-contain w-5/6 h-full">
       <!-- 白の部分 -->
       <h1 class="text-4xl mx-auto pt-8 pb-16 text-center">絵馬ジェネレーター</h1>
-      <form class="mx-auto">
+      <form id="emaForm" class="mx-auto" method="post" action="">
         <textarea class="block mx-auto justify-items-center border border-gray-400 rounded"></textarea>
-        <input class="block mx-auto justify-items-center border border-gray-400 rounded">
+        <!-- <input class="block mx-auto justify-items-center border border-gray-400 rounded"> -->
       </form>
-      <button class="block mx-auto bg-green-600 text-white py-2 px-4 rounded justify-items-center">絵馬を書く</button>
+      <button type="submit" form="emaForm" class="block mx-auto bg-green-600 text-white py-2 px-4 rounded justify-items-center">絵馬を書く</button>
     </div>
   </div>
 </body>
