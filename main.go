@@ -22,9 +22,10 @@ func randomString() string {
 func main() {
 	r := gin.Default()
 
+	var formContent string
 	r.POST("/", func(c *gin.Context) {
-		content := c.PostForm("content")
-		c.JSON(http.StatusOK, gin.H{"content": content})
+		formContent = c.PostForm("content")
+		c.JSON(http.StatusOK, gin.H{"content": formContent})
 	})
 
 	path := "src/fonts/Koruri.ttf"
@@ -33,7 +34,7 @@ func main() {
   })
 	fmt.Print(err)
 
-  img, err := d.Draw("text2img generates the image from a text")
+  img, err := d.Draw(formContent)
   fmt.Print(err)
 
   file, err := os.Create("dist/"+ randomString() + ".jpg")
