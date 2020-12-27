@@ -58,7 +58,8 @@ func main() {
 	r.POST("/", func(c *gin.Context) {
 		formContent := c.PostForm("content")
 		c.JSON(http.StatusOK, gin.H{"content": formContent})
-		createImage(formContent)
+		fileName := createImage(formContent)
+		c.JSON(http.StatusOK, gin.H{"fileName": fileName})
 	})
 
 	r.Run(":8080")
