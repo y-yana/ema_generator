@@ -5,10 +5,15 @@ import (
 	"encoding/binary"
 	"fmt"
 	"image/jpeg"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
 
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/gin-gonic/gin"
 	"github.com/julianshen/text2img"
 )
@@ -17,6 +22,29 @@ func randomString() string {
 	var n uint64
 	binary.Read(rand.Reader, binary.LittleEndian, &n)
 	return (strconv.FormatUint(n, 36))
+}
+
+func uploadImage(fileName string) {
+	AWS_ACCESS_KEY := os.Getenv("AWS_ACCESS_KEY_ID")
+	AWS_SECRET_ACCESS_KEY := os.Getenv("AWS_SECRET_ACCESS_KEY")
+	bucket := os.Getenv("S3_BUCKET_NAME")
+
+	creds := credentials.NewStaticCredentials(AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY, "")
+	sess, err := session.NewSession(&aws.Config{
+    Credentials: creds,
+    Region: aws.String("us-west-2")},
+	)
+	file, err := os.Open(fileName)
+
+	defer file.Close()
+
+	uploader := s3manager.NewUploader(sess)
+	_, err = uploader.Upload(&s3manager.UploadInput{
+    Bucket: aws.String(bucket),
+    Key: aws.String(fileName),
+    Body: file,
+	})
+	log.Print(err)
 }
 
 func createImage(formContent string) string {
@@ -46,7 +74,8 @@ func createImage(formContent string) string {
   fmt.Print(err)
   defer file.Close()
 
-  err = jpeg.Encode(file, img, &jpeg.Options{Quality: 70})
+	err = jpeg.Encode(file, img, &jpeg.Options{Quality: 70})
+	
   fmt.Print(err)
 	fmt.Print(fileName)
 	return (fileName)
