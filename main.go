@@ -25,9 +25,14 @@ func createImage(formContent string) string {
 	// bgColor := color.RGBA{ 255, 255, 255, 1 }
 	// textColor := color.RGBA{ 0, 0, 0, 1 }
 
+	// hexColor := "fff"
+	// c, err := text2img.Hex(hexColor)
+	// fmt.Print(c)
+
   d, err := text2img.NewDrawer(text2img.Params{
 		FontPath: fontPath,
 		BackgroundImagePath: bgimagePath,
+		// BackgroundColor: c,
 		// BackgroundColor: bgColor,
 		// TextColor: textColor,
 	})
