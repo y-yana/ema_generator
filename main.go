@@ -56,9 +56,13 @@ func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*.tmpl")
 
-	r.POST("/", func(c *gin.Context) {
-		formContent := c.PostForm("content")
-		fileName := createImage(formContent)
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl", gin.H{})
+	})
+
+	r.POST("/result", func(c *gin.Context) {
+			formContent := c.PostForm("content")
+			fileName := createImage(formContent)
 		c.HTML(http.StatusOK, "result.tmpl", gin.H{
 			"content": formContent,
 			"fileName": fileName,
