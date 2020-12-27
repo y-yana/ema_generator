@@ -54,12 +54,15 @@ func createImage(formContent string) string {
 
 func main() {
 	r := gin.Default()
+	r.LoadHTMLGlob("templates/*.tmpl")
 
 	r.POST("/", func(c *gin.Context) {
 		formContent := c.PostForm("content")
-		c.JSON(http.StatusOK, gin.H{"content": formContent})
 		fileName := createImage(formContent)
-		c.JSON(http.StatusOK, gin.H{"fileName": fileName})
+		c.HTML(http.StatusOK, "result.tmpl", gin.H{
+			"content": formContent,
+			"fileName": fileName,
+		})
 	})
 
 	r.Run(":8080")
